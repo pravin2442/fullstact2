@@ -1,0 +1,374 @@
+ts
+
+linked list comment line
+// Define a node
+class Node<T> {
+    value: T;
+    next: Node<T> | null;
+
+    constructor(value: T) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Define the linked list
+class LinkedList<T> {
+    private head: Node<T> | null = null;
+
+    // Insert at the end
+    append(value: T): void {
+        const newNode = new Node(value);
+
+        if (!this.head) {
+            this.head = newNode;
+            return;
+        }
+
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    // Insert at the beginning
+    prepend(value: T): void {
+        const newNode = new Node(value);
+        newNode.next = this.head;
+        this.head = newNode;
+    }
+
+    // Delete by value
+    delete(value: T): void {
+        if (!this.head) return;
+
+        // If head needs to be deleted
+        if (this.head.value === value) {
+            this.head = this.head.next;
+            return;
+        }
+
+        let current = this.head;
+        while (current.next && current.next.value !== value) {
+            current = current.next;
+        }
+
+        if (current.next) {
+            current.next = current.next.next;
+        }
+    }
+
+    // Print all elements
+    print(): void {
+        let current = this.head;
+        const elements: T[] = [];
+        while (current) {
+            elements.push(current.value);
+            current = current.next;
+        }
+        console.log(elements.join(' -> '));
+    }
+}
+
+// Example usage
+const list = new LinkedList<number>();
+
+list.append(10);
+list.append(20);
+list.append(30);
+list.print(); // Output: 10 -> 20 -> 30
+
+list.prepend(5);
+list.print(); // Output: 5 -> 10 -> 20 -> 30
+
+list.delete(20);
+list.print(); // Output: 5 -> 10 -> 30
+
+
+
+install the readline 
+npm install readline-sync
+
+
+
+import * as readlineSync from 'readline-sync';
+
+// Node class
+class Node<T> {
+    value: T;
+    next: Node<T> | null;
+
+    constructor(value: T) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Linked List class
+class LinkedList<T> {
+    private head: Node<T> | null = null;
+
+    append(value: T): void {
+        const newNode = new Node(value);
+
+        if (!this.head) {
+            this.head = newNode;
+            return;
+        }
+
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    print(): void {
+        let current = this.head;
+        const elements: T[] = [];
+        while (current) {
+            elements.push(current.value);
+            current = current.next;
+        }
+        console.log('Linked List: ' + elements.join(' -> '));
+    }
+}
+
+// Main Program
+const list = new LinkedList<string>();
+
+const numberOfElements = readlineSync.questionInt('How many strings do you want to insert? ');
+
+for (let i = 0; i < numberOfElements; i++) {
+    const input = readlineSync.question(`Enter string ${i + 1}: `);
+    list.append(input);
+}
+
+list.print();
+
+
+
+stack number 
+
+
+import * as readlineSync from 'readline-sync';
+
+class StackNumber {
+    private items: number[] = [];
+
+    push(element: number): void {
+        this.items.push(element);
+    }
+
+    pop(): number | undefined {
+        return this.items.pop();
+    }
+
+    print(): void {
+        console.log('Stack (Top -> Bottom): ' + this.items.slice().reverse().join(' -> '));
+    }
+}
+
+// Main program
+const numberStack = new StackNumber();
+const numCount = readlineSync.questionInt('How many numbers do you want to push into the stack? ');
+
+for (let i = 0; i < numCount; i++) {
+    const value = readlineSync.questionInt(`Enter number ${i + 1}: `);
+    numberStack.push(value);
+}
+
+numberStack.print();
+
+//string 
+import * as readlineSync from 'readline-sync';
+
+class StackString {
+    private items: string[] = [];
+
+    push(element: string): void {
+        this.items.push(element);
+    }
+
+    pop(): string | undefined {
+        return this.items.pop();
+    }
+
+    print(): void {
+        console.log('Stack (Top -> Bottom): ' + this.items.slice().reverse().join(' -> '));
+    }
+}
+
+// Main program
+const stringStack = new StackString();
+const strCount = readlineSync.questionInt('How many strings do you want to push into the stack? ');
+
+for (let i = 0; i < strCount; i++) {
+    const value = readlineSync.question(`Enter string ${i + 1}: `);
+    stringStack.push(value);
+}
+
+stringStack.print();
+
+
+// both string and number 
+
+import * as readlineSync from 'readline-sync';
+
+// Stack class generic
+class Stack<T> {
+    private items: T[] = [];
+
+    push(element: T): void {
+        this.items.push(element);
+    }
+
+    pop(): T | undefined {
+        return this.items.pop();
+    }
+
+    print(): void {
+        console.log('Stack (Top -> Bottom): ' + this.items.slice().reverse().join(' -> '));
+    }
+}
+
+// Main Program
+const numberStack = new Stack<number>();
+const stringStack = new Stack<string>();
+
+// Handle numbers
+const numCount = readlineSync.questionInt('How many numbers do you want to push into the stack? ');
+
+for (let i = 0; i < numCount; i++) {
+    const value = readlineSync.questionInt(`Enter number ${i + 1}: `);
+    numberStack.push(value);
+}
+
+// Handle strings
+const strCount = readlineSync.questionInt('How many strings do you want to push into the stack? ');
+
+for (let i = 0; i < strCount; i++) {
+    const value = readlineSync.question(`Enter string ${i + 1}: `);
+    stringStack.push(value);
+}
+
+// Print both stacks
+console.log('\n=== Number Stack ===');
+numberStack.print();
+
+console.log('\n=== String Stack ===');
+stringStack.print();
+
+
+
+// queue number 
+
+import * as readlineSync from 'readline-sync';
+
+class QueueNumber {
+    private items: number[] = [];
+
+    enqueue(element: number): void {
+        this.items.push(element);
+    }
+
+    dequeue(): number | undefined {
+        return this.items.shift();
+    }
+
+    print(): void {
+        console.log('Queue (Front -> Rear): ' + this.items.join(' -> '));
+    }
+}
+
+// Main program
+const numberQueue = new QueueNumber();
+const numCount = readlineSync.questionInt('How many numbers do you want to enqueue into the queue? ');
+
+for (let i = 0; i < numCount; i++) {
+    const value = readlineSync.questionInt(`Enter number ${i + 1}: `);
+    numberQueue.enqueue(value);
+}
+
+numberQueue.print();
+
+
+import * as readlineSync from 'readline-sync';
+
+class QueueString {
+    private items: string[] = [];
+
+    enqueue(element: string): void {
+        this.items.push(element);
+    }
+
+    dequeue(): string | undefined {
+        return this.items.shift();
+    }
+
+    print(): void {
+        console.log('Queue (Front -> Rear): ' + this.items.join(' -> '));
+    }
+}
+
+// Main program
+const stringQueue = new QueueString();
+const strCount = readlineSync.questionInt('How many strings do you want to enqueue into the queue? ');
+
+for (let i = 0; i < strCount; i++) {
+    const value = readlineSync.question(`Enter string ${i + 1}: `);
+    stringQueue.enqueue(value);
+}
+
+stringQueue.print();
+
+
+
+// number and string in queue
+
+import * as readlineSync from 'readline-sync';
+
+// Generic Queue class
+class Queue<T> {
+    private items: T[] = [];
+
+    enqueue(element: T): void {
+        this.items.push(element);
+    }
+
+    dequeue(): T | undefined {
+        return this.items.shift();
+    }
+
+    print(): void {
+        console.log('Queue (Front -> Rear): ' + this.items.join(' -> '));
+    }
+}
+
+// Main Program
+const numberQueue = new Queue<number>();
+const stringQueue = new Queue<string>();
+
+// Handle numbers
+const numCount = readlineSync.questionInt('How many numbers do you want to enqueue into the queue? ');
+
+for (let i = 0; i < numCount; i++) {
+    const value = readlineSync.questionInt(`Enter number ${i + 1}: `);
+    numberQueue.enqueue(value);
+}
+
+// Handle strings
+const strCount = readlineSync.questionInt('How many strings do you want to enqueue into the queue? ');
+
+for (let i = 0; i < strCount; i++) {
+    const value = readlineSync.question(`Enter string ${i + 1}: `);
+    stringQueue.enqueue(value);
+}
+
+// Print both queues
+console.log('\n=== Number Queue ===');
+numberQueue.print();
+
+console.log('\n=== String Queue ===');
+stringQueue.print();
