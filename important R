@@ -1,0 +1,191 @@
+string
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the current input value
+    const [inputValue, setInputValue] = useState<string>('');
+
+    // State to store the stack (list of values)
+    const [stack, setStack] = useState<string[]>([]);
+
+    // Function to handle input change
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    // Function to push value onto the stack
+    const handlePush = () => {
+        if (inputValue) {
+            setStack([inputValue, ...stack]);  // Add new value at the start (stack push)
+            setInputValue('');  // Clear the input field
+        }
+    };
+
+    // Function to pop value from the stack
+    const handlePop = () => {
+        if (stack.length > 0) {
+            const newStack = [...stack];
+            newStack.shift();  // Remove the last added item (stack pop)
+            setStack(newStack);
+        } else {
+            alert('Stack is empty!');
+        }
+    };
+
+    return (
+        <div>
+            <h2>Enter a String:</h2>
+            <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="Enter a string"
+            />
+            <button onClick={handlePush}>Push to Stack</button>
+            <button onClick={handlePop}>Pop from Stack</button>
+
+            <h3>Current Stack:</h3>
+            <ul>
+                {stack.map((value, index) => (
+                    <li key={index}>{value}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+number 
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the current input value (number)
+    const [inputValue, setInputValue] = useState<number | string>('');
+
+    // State to store the stack (list of numbers)
+    const [stack, setStack] = useState<number[]>([]);
+
+    // Function to handle input change
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    // Function to push value onto the stack
+    const handlePush = () => {
+        // Check if the input is a valid number
+        const parsedNumber = parseFloat(inputValue.toString());
+        if (!isNaN(parsedNumber)) {
+            setStack([parsedNumber, ...stack]);  // Add new number at the start (stack push)
+            setInputValue('');  // Clear the input field
+        } else {
+            alert('Please enter a valid number');
+        }
+    };
+
+    // Function to pop value from the stack
+    const handlePop = () => {
+        if (stack.length > 0) {
+            const newStack = [...stack];
+            newStack.shift();  // Remove the last added item (stack pop)
+            setStack(newStack);
+        } else {
+            alert('Stack is empty!');
+        }
+    };
+
+    return (
+        <div>
+            <h2>Enter a Number:</h2>
+            <input
+                type="number"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="Enter a number"
+            />
+            <button onClick={handlePush}>Push to Stack</button>
+            <button onClick={handlePop}>Pop from Stack</button>
+
+            <h3>Current Stack:</h3>
+            <ul>
+                {stack.map((value, index) => (
+                    <li key={index}>{value}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+both number and string
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the current input value (either number or string)
+    const [inputValue, setInputValue] = useState<string | number>('');
+
+    // State to store the stack (list of numbers and strings)
+    const [stack, setStack] = useState<(string | number)[]>([]);
+
+    // Function to handle input change
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    // Function to push value onto the stack
+    const handlePush = () => {
+        // Check if the input is a number or a string
+        const parsedNumber = parseFloat(inputValue.toString());
+        if (!isNaN(parsedNumber)) {
+            // If valid number, add number to stack
+            setStack([parsedNumber, ...stack]);
+        } else {
+            // If not a number, add string to stack
+            setStack([inputValue, ...stack]);
+        }
+        setInputValue(''); // Clear the input field
+    };
+
+    // Function to pop value from the stack
+    const handlePop = () => {
+        if (stack.length > 0) {
+            const newStack = [...stack];
+            newStack.shift();  // Remove the last added item (stack pop)
+            setStack(newStack);
+        } else {
+            alert('Stack is empty!');
+        }
+    };
+
+    return (
+        <div>
+            <h2>Enter a Number or String:</h2>
+            <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="Enter a number or string"
+            />
+            <button onClick={handlePush}>Push to Stack</button>
+            <button onClick={handlePop}>Pop from Stack</button>
+
+            <h3>Current Stack:</h3>
+            <ul>
+                {stack.map((value, index) => (
+                    <li key={index}>{value}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default App;
