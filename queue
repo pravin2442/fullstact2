@@ -1,0 +1,253 @@
+//html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Queue Input Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #queueDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Queue Demo</h1>
+
+  <input type="text" id="inputValue" placeholder="Enter a value (number or string)">
+  <button onclick="enqueueValue()">Enqueue</button>
+
+  <div id="queueDisplay">Queue: </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+queue for string input 
+
+// Node class (to store string values)
+class Node {
+    value: string;
+    next: Node | null;
+
+    constructor(value: string) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Queue class
+class Queue {
+    front: Node | null = null;
+    rear: Node | null = null;
+
+    enqueue(value: string): void {
+        const newNode = new Node(value);
+        if (this.rear === null) {
+            this.front = this.rear = newNode;
+        } else {
+            this.rear.next = newNode;
+            this.rear = newNode;
+        }
+    }
+
+    dequeue(): string | null {
+        if (this.front === null) return null;
+        const dequeuedValue = this.front.value;
+        this.front = this.front.next;
+        if (this.front === null) {
+            this.rear = null;
+        }
+        return dequeuedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.front;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Queue instance
+const stringQueue = new Queue();
+
+// Function called when "Enqueue" is clicked
+function enqueueValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    const value = inputElement.value.trim();
+
+    if (value) {
+        stringQueue.enqueue(value);
+        displayQueue();
+        inputElement.value = '';  // Clear input box
+    }
+}
+
+// Function to display queue on the page
+function displayQueue(): void {
+    const queueDiv = document.getElementById('queueDisplay') as HTMLElement;
+    queueDiv.textContent = 'Queue: ' + stringQueue.print();
+}
+
+
+
+queue for number input 
+
+// Node class (to store number values)
+class Node {
+    value: number;
+    next: Node | null;
+
+    constructor(value: number) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Queue class
+class Queue {
+    front: Node | null = null;
+    rear: Node | null = null;
+
+    enqueue(value: number): void {
+        const newNode = new Node(value);
+        if (this.rear === null) {
+            this.front = this.rear = newNode;
+        } else {
+            this.rear.next = newNode;
+            this.rear = newNode;
+        }
+    }
+
+    dequeue(): number | null {
+        if (this.front === null) return null;
+        const dequeuedValue = this.front.value;
+        this.front = this.front.next;
+        if (this.front === null) {
+            this.rear = null;
+        }
+        return dequeuedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.front;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Queue instance
+const numberQueue = new Queue();
+
+// Function called when "Enqueue" is clicked
+function enqueueValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    const value = inputElement.value.trim();
+
+    if (!isNaN(Number(value))) {
+        const numValue = Number(value);
+        numberQueue.enqueue(numValue);
+        displayQueue();
+        inputElement.value = '';  // Clear input box
+    } else {
+        alert("Please enter a valid number.");
+    }
+}
+
+// Function to display queue on the page
+function displayQueue(): void {
+    const queueDiv = document.getElementById('queueDisplay') as HTMLElement;
+    queueDiv.textContent = 'Queue: ' + numberQueue.print();
+}
+
+
+
+
+combine string and number input 
+
+// Node class (can store both number or string)
+class Node {
+    value: string | number;
+    next: Node | null;
+
+    constructor(value: string | number) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Queue class
+class Queue {
+    front: Node | null = null;
+    rear: Node | null = null;
+
+    enqueue(value: string | number): void {
+        const newNode = new Node(value);
+        if (this.rear === null) {
+            this.front = this.rear = newNode;
+        } else {
+            this.rear.next = newNode;
+            this.rear = newNode;
+        }
+    }
+
+    dequeue(): string | number | null {
+        if (this.front === null) return null;
+        const dequeuedValue = this.front.value;
+        this.front = this.front.next;
+        if (this.front === null) {
+            this.rear = null;
+        }
+        return dequeuedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.front;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Queue instance
+const queue = new Queue();
+
+// Function called when "Enqueue" is clicked
+function enqueueValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    let value = inputElement.value.trim();
+
+    if (value) {
+        // Check if value is a number or string
+        if (!isNaN(Number(value))) {
+            value = Number(value); // Convert to number if it's a valid number
+        }
+        
+        queue.enqueue(value);
+        displayQueue();
+        inputElement.value = '';  // Clear input box
+    }
+}
+
+// Function to display queue on the page
+function displayQueue(): void {
+    const queueDiv = document.getElementById('queueDisplay') as HTMLElement;
+    queueDiv.textContent = 'Queue: ' + queue.print();
+}
