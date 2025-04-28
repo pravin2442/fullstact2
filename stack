@@ -1,0 +1,229 @@
+// stack html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stack Input Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #stackDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Stack Demo</h1>
+
+  <input type="text" id="inputValue" placeholder="Enter a value (number or string)">
+  <button onclick="pushValue()">Push to Stack</button>
+
+  <div id="stackDisplay">Stack: </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+stack string input
+
+// Node class (to store string values)
+class Node {
+    value: string;
+    next: Node | null;
+
+    constructor(value: string) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Stack class
+class Stack {
+    top: Node | null = null;
+
+    push(value: string): void {
+        const newNode = new Node(value);
+        newNode.next = this.top;
+        this.top = newNode;
+    }
+
+    pop(): string | null {
+        if (this.top === null) return null;
+        const poppedValue = this.top.value;
+        this.top = this.top.next;
+        return poppedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.top;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Stack instance
+const stringStack = new Stack();
+
+// Function called when "Push to Stack" is clicked
+function pushValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    const value = inputElement.value.trim();
+
+    if (value) {
+        stringStack.push(value);
+        displayStack();
+        inputElement.value = '';  // Clear input box
+    }
+}
+
+// Function to display stack on the page
+function displayStack(): void {
+    const stackDiv = document.getElementById('stackDisplay') as HTMLElement;
+    stackDiv.textContent = 'Stack: ' + stringStack.print();
+}
+
+
+
+// stack number input
+// Node class (to store number values)
+class Node {
+    value: number;
+    next: Node | null;
+
+    constructor(value: number) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Stack class
+class Stack {
+    top: Node | null = null;
+
+    push(value: number): void {
+        const newNode = new Node(value);
+        newNode.next = this.top;
+        this.top = newNode;
+    }
+
+    pop(): number | null {
+        if (this.top === null) return null;
+        const poppedValue = this.top.value;
+        this.top = this.top.next;
+        return poppedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.top;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Stack instance
+const numberStack = new Stack();
+
+// Function called when "Push to Stack" is clicked
+function pushValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    const value = inputElement.value.trim();
+
+    if (!isNaN(Number(value))) {
+        const numValue = Number(value);
+        numberStack.push(numValue);
+        displayStack();
+        inputElement.value = '';  // Clear input box
+    } else {
+        alert("Please enter a valid number.");
+    }
+}
+
+// Function to display stack on the page
+function displayStack(): void {
+    const stackDiv = document.getElementById('stackDisplay') as HTMLElement;
+    stackDiv.textContent = 'Stack: ' + numberStack.print();
+}
+
+
+
+
+both string and number 
+// Node class (can store both number or string)
+class Node {
+    value: string | number;
+    next: Node | null;
+
+    constructor(value: string | number) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// Stack class
+class Stack {
+    top: Node | null = null;
+
+    push(value: string | number): void {
+        const newNode = new Node(value);
+        newNode.next = this.top;
+        this.top = newNode;
+    }
+
+    pop(): string | number | null {
+        if (this.top === null) return null;
+        const poppedValue = this.top.value;
+        this.top = this.top.next;
+        return poppedValue;
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.top;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create Stack instance
+const stack = new Stack();
+
+// Function called when "Push to Stack" is clicked
+function pushValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    let value = inputElement.value.trim();
+
+    if (value) {
+        // Check if value is a number or string
+        if (!isNaN(Number(value))) {
+            value = Number(value); // Convert to number if it's a valid number
+        }
+        
+        stack.push(value);
+        displayStack();
+        inputElement.value = '';  // Clear input box
+    }
+}
+
+// Function to display stack on the page
+function displayStack(): void {
+    const stackDiv = document.getElementById('stackDisplay') as HTMLElement;
+    stackDiv.textContent = 'Stack: ' + stack.print();
+}
