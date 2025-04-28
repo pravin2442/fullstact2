@@ -1,0 +1,152 @@
+string
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the user's input
+    const [value, setValue] = useState('');
+
+    // State to store the value to display
+    const [displayValue, setDisplayValue] = useState('');
+
+    // Function to handle the change in input
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+    };
+
+    // Function to display the input value
+    const handleDisplayValue = () => {
+        setDisplayValue(value);
+    };
+
+    return (
+        <div>
+            <h2>Enter a Value:</h2>
+            <input
+                type="text"
+                value={value}
+                onChange={handleInputChange}
+                placeholder="Type something..."
+            />
+            <button onClick={handleDisplayValue}>Display Value</button>
+
+            <h3>Displayed Value:</h3>
+            <p>{displayValue}</p>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the user's number input
+    const [number, setNumber] = useState<number | string>('');
+
+    // State to store the number to display
+    const [displayNumber, setDisplayNumber] = useState<number | string>('');
+
+    // Function to handle the change in input
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNumber(event.target.value);
+    };
+
+    // Function to display the number value
+    const handleDisplayNumber = () => {
+        // Only update display if the input is a valid number
+        const parsedNumber = parseFloat(number.toString());
+        if (!isNaN(parsedNumber)) {
+            setDisplayNumber(parsedNumber);
+        } else {
+            setDisplayNumber('Invalid input');
+        }
+    };
+
+    return (
+        <div>
+            <h2>Enter a Number:</h2>
+            <input
+                type="number"
+                value={number}
+                onChange={handleInputChange}
+                placeholder="Enter a number"
+            />
+            <button onClick={handleDisplayNumber}>Display Number</button>
+
+            <h3>Displayed Number:</h3>
+            <p>{displayNumber}</p>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+
+
+both number and strin g
+
+
+import React, { useState } from 'react';
+
+function App() {
+    // State to store the user's string input
+    const [text, setText] = useState<string>('');
+
+    // State to store the user's number input
+    const [number, setNumber] = useState<number | string>('');
+
+    // State to store the values to display
+    const [displayText, setDisplayText] = useState<string>('');
+    const [displayNumber, setDisplayNumber] = useState<number | string>('');
+
+    // Function to handle string input change
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setText(event.target.value);
+    };
+
+    // Function to handle number input change
+    const handleNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNumber(event.target.value);
+    };
+
+    // Function to display both string and number
+    const handleDisplay = () => {
+        const parsedNumber = parseFloat(number.toString());
+        setDisplayText(text);
+        setDisplayNumber(isNaN(parsedNumber) ? 'Invalid number input' : parsedNumber);
+    };
+
+    return (
+        <div>
+            <h2>Enter a String:</h2>
+            <input
+                type="text"
+                value={text}
+                onChange={handleTextChange}
+                placeholder="Enter a string"
+            />
+            <h2>Enter a Number:</h2>
+            <input
+                type="number"
+                value={number}
+                onChange={handleNumberChange}
+                placeholder="Enter a number"
+            />
+            <button onClick={handleDisplay}>Display Values</button>
+
+            <h3>Displayed String:</h3>
+            <p>{displayText}</p>
+
+            <h3>Displayed Number:</h3>
+            <p>{displayNumber}</p>
+        </div>
+    );
+}
+
+export default App;
