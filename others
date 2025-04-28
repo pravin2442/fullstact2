@@ -1,0 +1,225 @@
+import React, { useState } from 'react';
+
+function App() {
+    const [value, setValue] = useState('');
+    const [valuesList, setValuesList] = useState<string[]>([]);
+
+    const handleAddValue = () => {
+        if (value) {
+            setValuesList([...valuesList, value]);
+            setValue('');
+        }
+    };
+
+    const handleDeleteValue = (valueToDelete: string) => {
+        setValuesList(valuesList.filter(val => val !== valueToDelete));
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Enter value"
+            />
+            <button onClick={handleAddValue}>Add</button>
+            <div>
+                {valuesList.map((val, index) => (
+                    <div key={index}>
+                        <span>{val}</span>
+                        <button onClick={() => handleDeleteValue(val)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+
+add vlaues and sho alert
+
+import React, { useState } from 'react';
+
+function App() {
+    const [value, setValue] = useState('');
+    const [valuesList, setValuesList] = useState<string[]>([]);
+
+    const handleAddValue = () => {
+        if (value) {
+            setValuesList([...valuesList, value]);
+            setValue('');
+        }
+    };
+
+    const handleDeleteValue = (valueToDelete: string) => {
+        setValuesList(valuesList.filter(val => val !== valueToDelete));
+        alert(`Deleted: ${valueToDelete}`);
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Enter value"
+            />
+            <button onClick={handleAddValue}>Add</button>
+            <div>
+                {valuesList.map((val, index) => (
+                    <div key={index}>
+                        <span>{val}</span>
+                        <button onClick={() => handleDeleteValue(val)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+clear all values 
+
+import React, { useState } from 'react';
+
+function App() {
+    const [value, setValue] = useState('');
+    const [valuesList, setValuesList] = useState<string[]>([]);
+
+    const handleAddValue = () => {
+        if (value) {
+            setValuesList([...valuesList, value]);
+            setValue('');
+        }
+    };
+
+    const handleDeleteValue = (valueToDelete: string) => {
+        setValuesList(valuesList.filter(val => val !== valueToDelete));
+    };
+
+    const handleClearAll = () => {
+        setValuesList([]);
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Enter value"
+            />
+            <button onClick={handleAddValue}>Add</button>
+            <button onClick={handleClearAll}>Clear All</button>
+            <div>
+                {valuesList.map((val, index) => (
+                    <div key={index}>
+                        <span>{val}</span>
+                        <button onClick={() => handleDeleteValue(val)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+diaplay delete vlaues 
+import React, { useState } from 'react';
+
+function App() {
+    const [value, setValue] = useState('');
+    const [valuesList, setValuesList] = useState<string[]>([]);
+    const [deletedValue, setDeletedValue] = useState<string>('');
+
+    const handleAddValue = () => {
+        if (value) {
+            setValuesList([...valuesList, value]);
+            setValue('');
+        }
+    };
+
+    const handleDeleteValue = (valueToDelete: string) => {
+        setValuesList(valuesList.filter(val => val !== valueToDelete));
+        setDeletedValue(valueToDelete);
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Enter value"
+            />
+            <button onClick={handleAddValue}>Add</button>
+            {deletedValue && <div>Deleted Value: {deletedValue}</div>}
+            <div>
+                {valuesList.map((val, index) => (
+                    <div key={index}>
+                        <span>{val}</span>
+                        <button onClick={() => handleDeleteValue(val)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default App;
+
+
+
+display the number of iterm 
+
+import React, { useState } from 'react';
+
+function App() {
+    const [value, setValue] = useState('');
+    const [valuesList, setValuesList] = useState<string[]>([]);
+
+    const handleAddValue = () => {
+        if (value) {
+            setValuesList([...valuesList, value]);
+            setValue('');
+        }
+    };
+
+    const handleDeleteValue = (valueToDelete: string) => {
+        setValuesList(valuesList.filter(val => val !== valueToDelete));
+    };
+
+    return (
+        <div>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Enter value"
+            />
+            <button onClick={handleAddValue}>Add</button>
+            <div>Total items: {valuesList.length}</div>
+            <div>
+                {valuesList.map((val, index) => (
+                    <div key={index}>
+                        <span>{val}</span>
+                        <button onClick={() => handleDeleteValue(val)}>Delete</button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default App;
