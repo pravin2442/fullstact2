@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Ordering App</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .menu-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+    .menu-item img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    .menu-item-content {
+      display: flex;
+      align-items: center;
+    }
+    .cart {
+      margin-top: 20px;
+      border-top: 2px solid #ccc;
+      padding-top: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const mockMenuAPI = () => {
+      return Promise.resolve([
+        { id: 1, name: "Burger", price: 120, image: "https://via.placeholder.com/100x80?text=Burger" },
+        { id: 2, name: "Pizza", price: 250, image: "https://via.placeholder.com/100x80?text=Pizza" },
+        { id: 3, name: "Pasta", price: 200, image: "https://via.placeholder.com/100x80?text=Pasta" },
+        { id: 4, name: "Fries", price: 80, image: "https://via.placeholder.com/100x80?text=Fries" }
+      ]);
+    };
+
+    const MenuItem = ({ item, addToCart }) => (
+      <div className="menu-item">
+        <div className="menu-item-content">
+          <img src={item.image} alt={item.name} />
+          <div>
+            <h3>{item.name}</h3>
+            <p>Price: ₹{item.price}</p>
+            <button onClick={() => addToCart(item)}>Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    );
+
+    const App = () => {
+      const [menu, setMenu] = useState([]);
+      const [cart, setCart] = useState([]);
+
+      useEffect(() => {
+        mockMenuAPI().then(data => setMenu(data));
+      }, []);
+
+      const addToCart = (item) => {
+        setCart([...cart, item]);
+      };
+
+      const removeFromCart = (index) => {
+        setCart(cart.filter((_, i) => i !== index));
+      };
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+      return (
+        <div>
+          <h1>🍔 Online Food Ordering</h1>
+          <h2>Menu</h2>
+          {menu.map(item => (
+            <MenuItem key={item.id} item={item} addToCart={addToCart} />
+          ))}
+
+          <div className="cart">
+            <h2>🛒 Your Cart</h2>
+            {cart.length === 0 ? <p>No items added.</p> :
+              <>
+                <ul>
+                  {cart.map((item, index) => (
+                    <li key={index}>
+                      {item.name} - ₹{item.price}
+                      <button onClick={() => removeFromCart(index)}>Remove</button>
+                    </li>
+                  ))}
+                </ul>
+                <p><strong>Total:</strong> ₹{total}</p>
+              </>
+            }
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
