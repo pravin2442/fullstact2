@@ -1,0 +1,209 @@
+// index
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linked List Input Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #listDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Linked List Demo</h1>
+
+  <input type="text" id="inputValue" placeholder="Enter a value">
+  <button onclick="addValue()">Add to Linked List</button>
+
+  <div id="listDisplay">Linked List: </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+ts code // number 
+
+
+// Node class
+class Node {
+    value: string;
+    next: Node | null;
+
+    constructor(value: string) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// LinkedList class
+class LinkedList {
+    head: Node | null = null;
+
+    add(value: string): void {
+        const newNode = new Node(value);
+        if (this.head === null) {
+            this.head = newNode;
+        } else {
+            let current: Node | null = this.head;
+            while (current.next !== null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    print(): string {
+        let output = '';
+        let current = this.head;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create LinkedList instance
+const linkedList = new LinkedList();
+
+// Function called on button click
+function addValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    const value = inputElement.value.trim();
+    if (value) {
+        linkedList.add(value);
+        displayList();
+        inputElement.value = '';  // Clear input box
+    }
+}
+
+// Function to display list
+function displayList(): void {
+    const listDiv = document.getElementById('listDisplay') as HTMLElement;
+    listDiv.textContent = 'Linked List: ' + linkedList.print();
+}
+
+
+
+
+string html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linked List Input Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #listDisplay {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Linked List Demo</h1>
+
+  <input type="text" id="inputValue" placeholder="Enter a value (number or string)">
+  <button onclick="addValue()">Add to Linked List</button>
+
+  <div id="listDisplay">Linked List: </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+ts string
+// Node class (can store any type of value: number or string)
+class Node {
+    value: string | number;
+    next: Node | null;
+
+    constructor(value: string | number) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+// LinkedList class
+class LinkedList {
+    head: Node | null = null;
+
+    // Method to add new value to the linked list
+    add(value: string | number): void {
+        const newNode = new Node(value);
+        if (this.head === null) {
+            this.head = newNode;
+        } else {
+            let current: Node | null = this.head;
+            while (current.next !== null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+
+    // Method to print the linked list
+    print(): string {
+        let output = '';
+        let current = this.head;
+        while (current !== null) {
+            output += current.value + (current.next ? ' -> ' : '');
+            current = current.next;
+        }
+        return output;
+    }
+}
+
+// Create LinkedList instance
+const linkedList = new LinkedList();
+
+// Function called when button is clicked
+function addValue(): void {
+    const inputElement = document.getElementById('inputValue') as HTMLInputElement;
+    let value = inputElement.value.trim();
+
+    // Check if the value is a valid number
+    if (!isNaN(Number(value))) {
+        value = Number(value); // Convert to number
+    }
+
+    if (value) {
+        linkedList.add(value);
+        displayList();
+        inputElement.value = '';  // Clear input box
+    } else {
+        alert("Please enter a valid value.");
+    }
+}
+
+// Function to display linked list on the page
+function displayList(): void {
+    const listDiv = document.getElementById('listDisplay') as HTMLElement;
+    listDiv.textContent = 'Linked List: ' + linkedList.print();
+}
+
+
+
+
+
+
+
+
