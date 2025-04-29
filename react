@@ -1,0 +1,108 @@
+import React, { useState } from 'react';
+
+const StudentForm = () => {
+    const [students, setStudents] = useState([]);
+    const [name, setName] = useState('');
+    const [age, setAge] = useState('');
+
+    const handleSubmit = () => {
+        const trimmedName = name.trim();
+        const parsedAge = parseInt(age);
+
+        if (trimmedName === '' || isNaN(parsedAge)) {
+            alert('Please enter valid name and age');
+            return;
+        }
+
+        const newStudent = { name: trimmedName, age: parsedAge };
+        setStudents([...students, newStudent]);
+        setName('');
+        setAge('');
+    };
+
+    const handleClear = () => {
+        setName('');
+        setAge('');
+    };
+
+    const handleReset = () => {
+        setName('');
+        setAge('');
+        setStudents([]);
+    };
+
+    const handleDelete = () => {
+        setStudents(students.slice(0, -1));
+    };
+
+    return (
+        <div style={{ padding: '20px', maxWidth: '500px', margin: '0 auto' }}>
+            <h1>Add Student</h1>
+
+            <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter Name"
+                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+            />
+            <input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Enter Age"
+                style={{ display: 'block', marginBottom: '10px', width: '100%' }}
+            />
+
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={handleClear}>Clear</button>
+                <button onClick={handleReset}>Reset</button>
+                <button onClick={handleDelete}>Delete</button>
+            </div>
+
+            <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
+                {students.map((student, index) => (
+                    <li
+                        key={index}
+                        style={{
+                            background: '#f0f0f0',
+                            marginBottom: '8px',
+                            padding: '8px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => setStudents(students.filter((_, i) => i !== index))}
+                    >
+                        {`Name: ${student.name}, Age: ${student.age}`}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default StudentForm;
+
+
+
+
+
+
+
+app.jsx
+
+
+
+import StudentForm from './test';  // ✅ Fix typo here
+import './App.css';
+
+function App() {
+  return (
+    <>
+      <StudentForm />  {/* ✅ Use the correct component name */}
+    </>
+  );
+}
+
+export default App;
