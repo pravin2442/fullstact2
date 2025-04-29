@@ -1,0 +1,101 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Get Elements</title>
+</head>
+<body>
+    <h1>Add Student</h1>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <input type="number" id="age" placeholder="Enter Age">
+    
+    <button id="submit">Submit</button>
+    <button id="clear">Clear</button>
+    <button id="reset">Reset</button>
+    <button id="delete">Delete</button>
+
+
+    <div>
+        <ul id="studentList"></ul> <!-- List of students will be added here -->
+    </div>
+    
+
+    <script src="first.js"></script> <!-- Ensure this points to your compiled JS -->
+</body>
+</html>
+
+
+
+//ts code
+
+interface Person {
+    name: string;
+    age: number;
+}
+
+class Student implements Person {
+    name: string;
+    age: number;
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+    display(): string {
+        return `Name: ${this.name}, Age: ${this.age}`;
+    }
+}
+
+let names = document.getElementById("name") as HTMLInputElement;
+let age = document.getElementById("age") as HTMLInputElement;
+let studentList = document.getElementById("studentList") as HTMLUListElement;
+
+let submitButton = document.getElementById("submit") as HTMLButtonElement;
+submitButton.addEventListener("click", () => {
+    let nameValue = names.value.trim();
+    let ageValue = parseInt(age.value);
+    
+    if (nameValue === "" || isNaN(ageValue)) {
+        alert("Please enter valid name and age");
+    } else {
+        // Create new student instance
+        const student1 = new Student(nameValue, ageValue);
+        
+        // Create a new <li> element
+        const listItem = document.createElement("li");
+        listItem.textContent = student1.display();
+
+        // Add event listener to each <li> item for click-to-delete functionality
+        listItem.addEventListener("click", () => {
+            studentList.removeChild(listItem); // Remove the specific student when clicked
+        });
+
+        // Add the student <li> to the list
+        studentList.appendChild(listItem);
+
+        // Clear input fields after submission
+        names.value = "";
+        age.value = "";
+    }
+});
+
+let clearButton = document.getElementById("clear") as HTMLButtonElement;
+clearButton.addEventListener("click", () => {
+    names.value = "";
+    age.value = "";
+});
+
+let resetButton = document.getElementById("reset") as HTMLButtonElement;
+resetButton.addEventListener("click", () => {
+    names.value = "";
+    age.value = "";
+    studentList.innerHTML = ""; // Clear entire student list
+});
+
+let deleteButton = document.getElementById("delete") as HTMLButtonElement;
+deleteButton.addEventListener("click", () => {
+    if (studentList.lastChild) {
+        studentList.removeChild(studentList.lastChild); // Remove last student
+    }
+});
