@@ -1,0 +1,29 @@
+  import {  useState } from 'react'
+import './App.css'
+
+function App() {
+const [inpvalue,setInpValue]=useState("")
+const [task,setTask]=useState([]);
+
+function addTask(){
+
+  setTask([...task,inpvalue])
+  setInpValue("")
+}
+
+
+  return (
+    <>
+    <input value={inpvalue} type="text" onChange={(e)=>setInpValue(e.target.value)} />
+<button onClick={addTask}>add  </button>
+{
+  task.map((value,index)=>(
+    <p key={index}>{index+1}:{value}</p>
+  ))
+
+}
+    </>
+  )
+}
+
+export default App
